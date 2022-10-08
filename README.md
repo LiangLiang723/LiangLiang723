@@ -3,7 +3,7 @@
 
 ![](https://komarev.com/ghpvc/?username=LiangLiang723)
 
-[![UMECJF's github stats](https://github-readme-stats.vercel.app/api?username=SFUMECJF&count_private=true)](https://github.com/LiangLiang723/LiangLiang723)
+[![UMECJF's github stats](https://github-readme-stats.vercel.app/api?username=LiangLiang723&count_private=true)](https://github.com/LiangLiang723/LiangLiang723)
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=SFUMECJF&layout=compact)](https://github.com/LiangLiang723/LiangLiang723)
 
