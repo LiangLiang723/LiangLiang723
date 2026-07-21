@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="132" viewBox="0 0 1200 132" role="img" aria-labelledby="title desc">
   <title id="title">亮亮的精简开发数据（dark）</title>
-  <desc id="desc">公开仓库 13，过去一年贡献 269，主要语言 C</desc>
+  <desc id="desc">公开仓库 13，过去一年贡献 26，主要语言 HTML</desc>
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#FFFFFF0A" stroke-width="1"/>
@@ -32,12 +32,15 @@
   <rect x="52" y="32" width="3" height="66" rx="1.5" fill="url(#accentLine)"/>
   <text x="78" y="52" font-size="14" fill="#96969D" class="label">公开仓库</text>
   <text x="78" y="91" font-size="29" fill="#F7F7F8" class="title">13</text>
+
   <line x1="380" y1="32" x2="380" y2="100" stroke="#FFFFFF1A"/>
   <text x="430" y="52" font-size="14" fill="#96969D" class="label">过去一年贡献</text>
-  <text x="430" y="91" font-size="29" fill="#F7F7F8" class="title">269</text>
+  <text x="430" y="91" font-size="29" fill="#F7F7F8" class="title">26</text>
+
   <line x1="750" y1="32" x2="750" y2="100" stroke="#FFFFFF1A"/>
   <text x="800" y="52" font-size="14" fill="#96969D" class="label">主要语言</text>
-  <text x="800" y="91" font-size="29" fill="#F7F7F8" class="title">C</text>
+  <text x="800" y="91" font-size="29" fill="#F7F7F8" class="title">HTML</text>
+
   <circle cx="1137" cy="65" r="5" fill="#8B7CF6"/>
   <circle cx="1137" cy="65" r="12" fill="none" stroke="#8B7CF6" stroke-opacity="0.22"/>
 
