@@ -16,6 +16,7 @@ WORKFLOW = ROOT / ".github" / "workflows" / "profile.yml"
 GENERATOR = ROOT / ".github" / "scripts" / "generate_apple_assets.py"
 STYLER = ROOT / ".github" / "scripts" / "style_summary_cards.py"
 APPLE_DIR = ROOT / "assets" / "apple"
+SUMMARY_ROOT = ROOT / "profile-summary-card-output"
 
 EXPECTED_ASSETS = {
     "hero-light.svg", "hero-dark.svg",
@@ -70,14 +71,21 @@ FORBIDDEN_ASSET_TOKENS = [
     ">Infrastructure<",
 ]
 
+SUMMARY_FILES = {"0-profile-details.svg", "1-repos-per-language.svg", "3-stats.svg"}
 SUMMARY_REFERENCES = [
-    "profile-summary-card-output/github/0-profile-details.svg",
-    "profile-summary-card-output/github_dark/0-profile-details.svg",
-    "profile-summary-card-output/github/1-repos-per-language.svg",
-    "profile-summary-card-output/github_dark/1-repos-per-language.svg",
-    "profile-summary-card-output/github/3-stats.svg",
-    "profile-summary-card-output/github_dark/3-stats.svg",
+    f"profile-summary-card-output/{theme}/{name}"
+    for theme in ("github", "github_dark")
+    for name in sorted(SUMMARY_FILES)
 ]
+SUMMARY_PALETTES = {
+    "github": {"surface": "#FFFFFF", "border": "#D2D2D7", "accent": "#0071E3"},
+    "github_dark": {"surface": "#1C1C1E", "border": "#38383A", "accent": "#0A84FF"},
+}
+SUMMARY_LOCALIZED_TOKENS = {
+    "0-profile-details.svg": ("GitHub 贡献：", "公开仓库：", "加入 GitHub："),
+    "1-repos-per-language.svg": ("主要编程语言",),
+    "3-stats.svg": ("开发统计", "星标数：", "提交数：", "合并请求：", "议题数：", "参与仓库："),
+}
 
 PROJECT_ASSETS = [
     "project-ai-berkshire-light.svg", "project-ai-berkshire-dark.svg",
@@ -114,9 +122,35 @@ def validate_determinism(errors: list[str]) -> None:
     if result_b.returncode:
         errors.append(f"Asset generator failed on second run: {result_b.stderr.strip() or result_b.stdout.strip()}")
         return
-    hash_b = hashes()
-    if hash_a != hash_b:
+    if hash_a != hashes():
         errors.append("Asset generator is not deterministic across consecutive runs")
+
+
+def validate_summary_cards(errors: list[str]) -> None:
+    for theme, palette in SUMMARY_PALETTES.items():
+        theme_dir = SUMMARY_ROOT / theme
+        if not theme_dir.is_dir():
+            errors.append(f"Missing generated summary theme directory: {theme_dir.relative_to(ROOT)}")
+            continue
+        files = {path.name for path in theme_dir.iterdir() if path.is_file()}
+        for name in sorted(SUMMARY_FILES - files):
+            errors.append(f"Missing generated summary card: {theme_dir.relative_to(ROOT)}/{name}")
+        for name in sorted(files - SUMMARY_FILES):
+            errors.append(f"Unexpected generated summary file: {theme_dir.relative_to(ROOT)}/{name}")
+        for name in sorted(SUMMARY_FILES & files):
+            path = theme_dir / name
+            raw = path.read_text(encoding="utf-8")
+            try:
+                ET.fromstring(raw)
+            except ET.ParseError as exc:
+                errors.append(f"Invalid summary-card XML in {path.relative_to(ROOT)}: {exc}")
+                continue
+            for token in (palette["surface"], palette["border"], palette["accent"], 'rx="18"', "system-ui"):
+                if token not in raw:
+                    errors.append(f"{path.relative_to(ROOT)} is missing Editorial summary token: {token}")
+            for token in SUMMARY_LOCALIZED_TOKENS[name]:
+                if token not in raw:
+                    errors.append(f"{path.relative_to(ROOT)} is missing localized label: {token}")
 
 
 def validate(*, require_summary_cards: bool = False) -> list[str]:
@@ -198,8 +232,8 @@ def validate(*, require_summary_cards: bool = False) -> list[str]:
     for path in SUMMARY_REFERENCES:
         if path not in markdown:
             errors.append(f"README missing summary-card reference: {path}")
-        if require_summary_cards and not (ROOT / path).is_file():
-            errors.append(f"Generated summary card is missing: {path}")
+    if require_summary_cards:
+        validate_summary_cards(errors)
 
     for ref in sorted(local_references(markdown)):
         if ref.startswith("profile-summary-card-output/") and not require_summary_cards:
@@ -235,7 +269,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--require-summary-cards",
         action="store_true",
-        help="Require generated summary-card SVG files to exist. Use after the build step.",
+        help="Require generated and styled summary-card SVG files to exist. Use after the build step.",
     )
     return parser.parse_args()
 
