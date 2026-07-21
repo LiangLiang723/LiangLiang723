@@ -2,6 +2,7 @@
 """Validate the Apple Editorial 2.0 GitHub profile and workflow wiring."""
 from __future__ import annotations
 
+import argparse
 import hashlib
 import re
 import subprocess
@@ -118,7 +119,7 @@ def validate_determinism(errors: list[str]) -> None:
         errors.append("Asset generator is not deterministic across consecutive runs")
 
 
-def validate() -> list[str]:
+def validate(*, require_summary_cards: bool = False) -> list[str]:
     errors: list[str] = []
     if not README.is_file():
         return ["Missing README.md"]
@@ -197,7 +198,12 @@ def validate() -> list[str]:
     for path in SUMMARY_REFERENCES:
         if path not in markdown:
             errors.append(f"README missing summary-card reference: {path}")
+        if require_summary_cards and not (ROOT / path).is_file():
+            errors.append(f"Generated summary card is missing: {path}")
+
     for ref in sorted(local_references(markdown)):
+        if ref.startswith("profile-summary-card-output/") and not require_summary_cards:
+            continue
         if not (ROOT / ref).is_file():
             errors.append(f"README references missing local file: {ref}")
 
@@ -208,6 +214,7 @@ def validate() -> list[str]:
 
     workflow_tokens = [
         "python3 .github/scripts/style_summary_cards.py",
+        "python3 .github/scripts/validate_profile.py --require-summary-cards",
         "THEME: github\n",
         "THEME: github_dark\n",
         "color_snake=%230071E3",
@@ -223,14 +230,26 @@ def validate() -> list[str]:
     return errors
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--require-summary-cards",
+        action="store_true",
+        help="Require generated summary-card SVG files to exist. Use after the build step.",
+    )
+    return parser.parse_args()
+
+
 def main() -> int:
-    errors = validate()
+    args = parse_args()
+    errors = validate(require_summary_cards=args.require_summary_cards)
     if errors:
         for error in errors:
             print(f"ERROR: {error}")
         print(f"Profile validation failed with {len(errors)} error(s).")
         return 1
-    print("Profile validation passed.")
+    mode = "full" if args.require_summary_cards else "structural"
+    print(f"Profile validation passed ({mode}).")
     return 0
 
 
