@@ -27,7 +27,7 @@
     .label { font-weight: 560; letter-spacing: 0.15px; }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
   </style>
-  <rect x="1" y="1" width="1198" height="130" rx="16" fill="#FAFAFB" stroke="#17171916" stroke-width="1"/>
+  <rect x="1" y="1" width="1198" height="130" rx="16" fill="#F7F7F8" stroke="#17171916" stroke-width="1"/>
   <rect x="1" y="1" width="1198" height="130" rx="16" fill="url(#grid)" opacity="0.42"/>
   <rect x="52" y="32" width="3" height="66" rx="1.5" fill="url(#accentLine)"/>
   <text x="78" y="52" font-size="14" fill="#6B6B70" class="label">公开仓库</text>

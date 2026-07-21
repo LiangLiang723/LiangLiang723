@@ -27,7 +27,7 @@
     .label { font-weight: 560; letter-spacing: 0.15px; }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
   </style>
-  <rect x="1" y="1" width="1198" height="236" rx="18" fill="#121316" stroke="#FFFFFF1A" stroke-width="1"/>
+  <rect x="1" y="1" width="1198" height="236" rx="18" fill="#0F1012" stroke="#FFFFFF1A" stroke-width="1"/>
   <rect x="1" y="1" width="1198" height="236" rx="18" fill="url(#grid)"/>
   <ellipse cx="1035" cy="94" rx="235" ry="180" fill="url(#glowA)"/>
   <ellipse cx="1105" cy="174" rx="160" ry="118" fill="url(#glowB)"/>
