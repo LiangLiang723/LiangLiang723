@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="390" viewBox="0 0 1200 390" role="img" aria-labelledby="title desc">
+  <title id="title">亮亮的 Apple 风格主页首屏（light）</title>
+  <desc id="desc">显示 LiangLiang723、嵌入式软件工程师身份、开发理念与核心技术方向</desc>
+  <defs>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F5F7"/>
+    </linearGradient>
+    <linearGradient id="blueOrb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#32ADE6"/>
+      <stop offset="0.56" stop-color="#0071E3"/>
+      <stop offset="1" stop-color="#AF52DE"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFFCC"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#00000018"/>
+    </filter>
+    <filter id="smallShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#00000018"/>
+    </filter>
+  </defs>
+  <style>
+    text { font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; }
+    .display { font-weight: 760; letter-spacing: -2.2px; }
+    .title { font-weight: 720; letter-spacing: -0.6px; }
+    .body { font-weight: 460; }
+    .label { font-weight: 620; letter-spacing: 0.2px; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect width="1200" height="390" rx="34" fill="url(#canvas)"/>
+  <g filter="url(#shadow)">
+    <rect x="30" y="28" width="1140" height="334" rx="34" fill="url(#glass)" stroke="#D2D2D7" stroke-width="1"/>
+  </g>
+  <circle cx="1015" cy="190" r="116" fill="url(#blueOrb)" opacity="0.96"/>
+  <circle cx="978" cy="151" r="46" fill="#FFFFFF" opacity="0.18"/>
+  <path d="M958 229c36 21 93 16 128-21" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" opacity="0.26"/>
+  <text x="82" y="92" font-size="20" fill="#0071E3" class="label" text-anchor="start">Hello, I’m 亮亮</text>
+  <text x="78" y="166" font-size="66" fill="#1D1D1F" class="display" text-anchor="start">LiangLiang723</text>
+  <text x="82" y="211" font-size="28" fill="#515154" class="title" text-anchor="start">嵌入式软件工程师</text>
+  <text x="82" y="257" font-size="20" fill="#515154" class="body" text-anchor="start">让复杂系统保持清晰，让可靠软件持续演进。</text>
+  <rect x="82" y="292" width="132" height="42" rx="21" fill="#F9F9FB" stroke="#D2D2D7" stroke-width="1"/>
+<circle cx="104" cy="313" r="6" fill="#0071E3"/>
+<text x="120" y="319" font-size="15" fill="#515154" class="label" text-anchor="start">C / C++</text>
+  <rect x="226" y="292" width="112" height="42" rx="21" fill="#F9F9FB" stroke="#D2D2D7" stroke-width="1"/>
+<circle cx="248" cy="313" r="6" fill="#34C759"/>
+<text x="264" y="319" font-size="15" fill="#515154" class="label" text-anchor="start">RTOS</text>
+  <rect x="350" y="292" width="122" height="42" rx="21" fill="#F9F9FB" stroke="#D2D2D7" stroke-width="1"/>
+<circle cx="372" cy="313" r="6" fill="#32ADE6"/>
+<text x="388" y="319" font-size="15" fill="#515154" class="label" text-anchor="start">STM32</text>
+  <rect x="484" y="292" width="128" height="42" rx="21" fill="#F9F9FB" stroke="#D2D2D7" stroke-width="1"/>
+<circle cx="506" cy="313" r="6" fill="#0071E3"/>
+<text x="522" y="319" font-size="15" fill="#515154" class="label" text-anchor="start">Flutter</text>
+  <rect x="624" y="292" width="158" height="42" rx="21" fill="#F9F9FB" stroke="#D2D2D7" stroke-width="1"/>
+<circle cx="646" cy="313" r="6" fill="#AF52DE"/>
+<text x="662" y="319" font-size="15" fill="#515154" class="label" text-anchor="start">Self-hosted</text>
+
+</svg>

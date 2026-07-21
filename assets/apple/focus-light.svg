@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="285" viewBox="0 0 1200 285" role="img" aria-labelledby="title desc">
+  <title id="title">亮亮当前关注方向（light）</title>
+  <desc id="desc">嵌入式架构、RTOS、个人知识管理和 AI 辅助开发</desc>
+  <defs>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F5F7"/>
+    </linearGradient>
+    <linearGradient id="blueOrb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#32ADE6"/>
+      <stop offset="0.56" stop-color="#0071E3"/>
+      <stop offset="1" stop-color="#AF52DE"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFFCC"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#00000018"/>
+    </filter>
+    <filter id="smallShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#00000018"/>
+    </filter>
+  </defs>
+  <style>
+    text { font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; }
+    .display { font-weight: 760; letter-spacing: -2.2px; }
+    .title { font-weight: 720; letter-spacing: -0.6px; }
+    .body { font-weight: 460; }
+    .label { font-weight: 620; letter-spacing: 0.2px; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect width="1200" height="285" rx="30" fill="url(#canvas)"/>
+<rect x="40" y="30" width="265" height="225" rx="28" fill="#FFFFFF" stroke="#D2D2D7" stroke-width="1" filter="url(#smallShadow)"/>
+<circle cx="88" cy="78" r="22" fill="#0071E3" opacity="0.14"/>
+<text x="88" y="86" font-size="22" fill="#0071E3" class="title" text-anchor="middle">⌘</text>
+<text x="68" y="124" font-size="13" fill="#86868B" class="label" text-anchor="start">Architecture</text>
+<text x="68" y="158" font-size="22" fill="#1D1D1F" class="title" text-anchor="start">嵌入式架构</text>
+<text x="68" y="193" font-size="15" fill="#515154" class="body" text-anchor="start">模块边界与状态流转</text>
+<circle cx="68" cy="224" r="4" fill="#0071E3"/>
+<line x1="82" y1="224" x2="148" y2="224" stroke="#B7B7BC" stroke-width="2" stroke-linecap="round"/>
+<rect x="325" y="30" width="265" height="225" rx="28" fill="#FFFFFF" stroke="#D2D2D7" stroke-width="1" filter="url(#smallShadow)"/>
+<circle cx="373" cy="78" r="22" fill="#34C759" opacity="0.14"/>
+<text x="373" y="86" font-size="22" fill="#34C759" class="title" text-anchor="middle">◴</text>
+<text x="353" y="124" font-size="13" fill="#86868B" class="label" text-anchor="start">Real-time</text>
+<text x="353" y="158" font-size="22" fill="#1D1D1F" class="title" text-anchor="start">RTOS</text>
+<text x="353" y="193" font-size="15" fill="#515154" class="body" text-anchor="start">任务、事件与消息机制</text>
+<circle cx="353" cy="224" r="4" fill="#34C759"/>
+<line x1="367" y1="224" x2="433" y2="224" stroke="#B7B7BC" stroke-width="2" stroke-linecap="round"/>
+<rect x="610" y="30" width="265" height="225" rx="28" fill="#FFFFFF" stroke="#D2D2D7" stroke-width="1" filter="url(#smallShadow)"/>
+<circle cx="658" cy="78" r="22" fill="#FF9F0A" opacity="0.14"/>
+<text x="658" y="86" font-size="22" fill="#FF9F0A" class="title" text-anchor="middle">◇</text>
+<text x="638" y="124" font-size="13" fill="#86868B" class="label" text-anchor="start">Knowledge</text>
+<text x="638" y="158" font-size="22" fill="#1D1D1F" class="title" text-anchor="start">个人知识管理</text>
+<text x="638" y="193" font-size="15" fill="#515154" class="body" text-anchor="start">Markdown 与多端同步</text>
+<circle cx="638" cy="224" r="4" fill="#FF9F0A"/>
+<line x1="652" y1="224" x2="718" y2="224" stroke="#B7B7BC" stroke-width="2" stroke-linecap="round"/>
+<rect x="895" y="30" width="265" height="225" rx="28" fill="#FFFFFF" stroke="#D2D2D7" stroke-width="1" filter="url(#smallShadow)"/>
+<circle cx="943" cy="78" r="22" fill="#AF52DE" opacity="0.14"/>
+<text x="943" y="86" font-size="22" fill="#AF52DE" class="title" text-anchor="middle">✦</text>
+<text x="923" y="124" font-size="13" fill="#86868B" class="label" text-anchor="start">Intelligence</text>
+<text x="923" y="158" font-size="22" fill="#1D1D1F" class="title" text-anchor="start">AI 辅助开发</text>
+<text x="923" y="193" font-size="15" fill="#515154" class="body" text-anchor="start">Agent 工作流与自动化</text>
+<circle cx="923" cy="224" r="4" fill="#AF52DE"/>
+<line x1="937" y1="224" x2="1003" y2="224" stroke="#B7B7BC" stroke-width="2" stroke-linecap="round"/>
+</svg>

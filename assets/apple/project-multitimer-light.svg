@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">项目：MultiTimer（light）</title>
+  <desc id="desc">用于周期任务、延时任务与状态调度的多定时器</desc>
+  <defs>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F5F7"/>
+    </linearGradient>
+    <linearGradient id="blueOrb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#32ADE6"/>
+      <stop offset="0.56" stop-color="#0071E3"/>
+      <stop offset="1" stop-color="#AF52DE"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFFCC"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#00000018"/>
+    </filter>
+    <filter id="smallShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#00000018"/>
+    </filter>
+  </defs>
+  <style>
+    text { font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; }
+    .display { font-weight: 760; letter-spacing: -2.2px; }
+    .title { font-weight: 720; letter-spacing: -0.6px; }
+    .body { font-weight: 460; }
+    .label { font-weight: 620; letter-spacing: 0.2px; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect width="1200" height="420" rx="34" fill="url(#canvas)"/>
+  <rect x="38" y="30" width="1124" height="354" rx="34" fill="#FFFFFF" stroke="#D2D2D7" stroke-width="1" filter="url(#smallShadow)"/>
+  <circle cx="132" cy="132" r="58" fill="#FF9F0A" opacity="0.14"/>
+  <text x="132" y="148" font-size="48" fill="#FF9F0A" class="title" text-anchor="middle">◷</text>
+  <text x="222" y="122" font-size="47" fill="#1D1D1F" class="display" text-anchor="start">MultiTimer</text>
+  <text x="222" y="171" font-size="25" fill="#515154" class="body" text-anchor="start">用于周期任务、延时任务与状态调度的多定时器</text>
+  <text x="86" y="249" font-size="18" fill="#86868B" class="label" text-anchor="start">Featured project</text>
+  <rect x="86" y="286" width="162" height="54" rx="27" fill="#F9F9FB" stroke="#D2D2D7" stroke-width="1"/><text x="167" y="321" font-size="20" fill="#515154" class="label" text-anchor="middle">Timer</text><rect x="264" y="286" width="242" height="54" rx="27" fill="#F9F9FB" stroke="#D2D2D7" stroke-width="1"/><text x="385" y="321" font-size="20" fill="#515154" class="label" text-anchor="middle">Scheduler</text><rect x="522" y="286" width="122" height="54" rx="27" fill="#F9F9FB" stroke="#D2D2D7" stroke-width="1"/><text x="583" y="321" font-size="20" fill="#515154" class="label" text-anchor="middle">MCU</text>
+  <circle cx="1070" cy="207" r="44" fill="#E8F2FF"/>
+  <path d="M1052 207h34m-14-14 14 14-14 14" fill="none" stroke="#0071E3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1070" y="308" font-size="18" fill="#86868B" class="label" text-anchor="middle">TIMER</text>
+
+</svg>

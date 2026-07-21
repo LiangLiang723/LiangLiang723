@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="title desc">
+  <title id="title">亮亮的技术能力（dark）</title>
+  <desc id="desc">嵌入式、应用开发和基础设施三组技术能力</desc>
+  <defs>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101012"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <linearGradient id="blueOrb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#64D2FF"/>
+      <stop offset="0.56" stop-color="#0A84FF"/>
+      <stop offset="1" stop-color="#BF5AF2"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF16"/>
+      <stop offset="1" stop-color="#1C1C1E"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#00000066"/>
+    </filter>
+    <filter id="smallShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#00000066"/>
+    </filter>
+  </defs>
+  <style>
+    text { font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; }
+    .display { font-weight: 760; letter-spacing: -2.2px; }
+    .title { font-weight: 720; letter-spacing: -0.6px; }
+    .body { font-weight: 460; }
+    .label { font-weight: 620; letter-spacing: 0.2px; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect width="1200" height="340" rx="30" fill="url(#canvas)"/>
+  <rect x="40" y="28" width="1120" height="284" rx="30" fill="#1C1C1E" stroke="#3A3A3C" stroke-width="1" filter="url(#smallShadow)"/>
+  <text x="74" y="76" font-size="26" fill="#F5F5F7" class="title" text-anchor="start">Technical capabilities</text>
+  <text x="1090" y="75" font-size="14" fill="#98989D" class="label" text-anchor="end">Focused · Reliable · Maintainable</text>
+  <line x1="74" y1="98" x2="1126" y2="98" stroke="#3A3A3C" stroke-width="1"/>
+  <text x="74" y="148" font-size="18" fill="#98989D" class="label" text-anchor="start">Embedded</text>
+<rect x="260" y="118" width="104" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="284" cy="144" r="7" fill="#0A84FF"/>
+<text x="302" y="151" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">C</text>
+<rect x="378" y="118" width="104" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="402" cy="144" r="7" fill="#0A84FF"/>
+<text x="420" y="151" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">C++</text>
+<rect x="496" y="118" width="117" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="520" cy="144" r="7" fill="#64D2FF"/>
+<text x="538" y="151" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">STM32</text>
+<rect x="627" y="118" width="162" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="651" cy="144" r="7" fill="#30D158"/>
+<text x="669" y="151" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">FreeRTOS</text>
+<rect x="803" y="118" width="132" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="827" cy="144" r="7" fill="#BF5AF2"/>
+<text x="845" y="151" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">Zephyr</text>
+  <text x="74" y="213" font-size="18" fill="#98989D" class="label" text-anchor="start">Application</text>
+<rect x="260" y="183" width="147" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="284" cy="209" r="7" fill="#0A84FF"/>
+<text x="302" y="216" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">Flutter</text>
+<rect x="421" y="183" width="132" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="445" cy="209" r="7" fill="#FF9F0A"/>
+<text x="463" y="216" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">Python</text>
+<rect x="567" y="183" width="104" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="591" cy="209" r="7" fill="#64D2FF"/>
+<text x="609" y="216" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">Go</text>
+  <text x="74" y="278" font-size="18" fill="#98989D" class="label" text-anchor="start">Infrastructure</text>
+<rect x="260" y="248" width="132" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="284" cy="274" r="7" fill="#0A84FF"/>
+<text x="302" y="281" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">Docker</text>
+<rect x="406" y="248" width="117" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="430" cy="274" r="7" fill="#FF9F0A"/>
+<text x="448" y="281" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">Linux</text>
+<rect x="537" y="248" width="104" height="52" rx="18" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
+<circle cx="561" cy="274" r="7" fill="#BF5AF2"/>
+<text x="579" y="281" font-size="16" fill="#F5F5F7" class="label" text-anchor="start">Git</text>
+
+</svg>
