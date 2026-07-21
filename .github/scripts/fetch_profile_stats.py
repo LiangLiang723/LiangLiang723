@@ -136,6 +136,12 @@ def main() -> int:
     try:
         payload = graphql_request(url, token, QUERY, {"login": owner})
         stats = build_stats(payload)
+        if OUT.is_file():
+            previous = json.loads(OUT.read_text(encoding="utf-8"))
+            keys = ("public_repos", "contributions", "primary_language")
+            if all(previous.get(key) == stats.get(key) for key in keys):
+                print(f"Profile stats for {owner} are unchanged.")
+                return 0
         atomic_write(OUT, stats)
     except (OSError, ValueError, RuntimeError, urllib.error.URLError) as exc:
         print(f"ERROR: Unable to update profile stats; preserving previous data: {exc}", file=sys.stderr)
