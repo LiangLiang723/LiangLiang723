@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="250" viewBox="0 0 1040 250" role="img" aria-labelledby="title desc">
+  <title id="title">亮亮的技术栈</title>
+  <desc id="desc">C、C++、STM32、FreeRTOS、Zephyr、Flutter、Python、Go、Docker、Linux 与 Git</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1020"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="border" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8B5CF6"/>
+      <stop offset="0.5" stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="1" y="1" width="1038" height="248" rx="24" fill="url(#bg)" stroke="url(#border)" stroke-width="2"/>
+
+  <g font-family="system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif">
+    <text x="32" y="40" font-size="18" font-weight="800" fill="#C4B5FD">嵌入式与系统开发</text>
+    <text x="32" y="143" font-size="18" font-weight="800" fill="#7DD3FC">应用、工具与基础设施</text>
+
+    <g font-size="16" font-weight="750" fill="#F8FAFC">
+      <g transform="translate(32 58)"><rect width="170" height="54" rx="15" fill="#172033" stroke="#A8B9CC"/><circle cx="25" cy="27" r="8" fill="#A8B9CC"/><text x="43" y="33">C · 嵌入式开发</text></g>
+      <g transform="translate(217 58)"><rect width="170" height="54" rx="15" fill="#13223A" stroke="#3B82F6"/><circle cx="25" cy="27" r="8" fill="#60A5FA"/><text x="43" y="33">C++ · 系统开发</text></g>
+      <g transform="translate(402 58)"><rect width="170" height="54" rx="15" fill="#101D32" stroke="#2563EB"/><circle cx="25" cy="27" r="8" fill="#2563EB"/><text x="43" y="33">STM32 · MCU</text></g>
+      <g transform="translate(587 58)"><rect width="190" height="54" rx="15" fill="#10251F" stroke="#22C55E"/><circle cx="25" cy="27" r="8" fill="#34D399"/><text x="43" y="33">FreeRTOS · 实时系统</text></g>
+      <g transform="translate(792 58)"><rect width="216" height="54" rx="15" fill="#21143B" stroke="#8B5CF6"/><circle cx="25" cy="27" r="8" fill="#A78BFA"/><text x="43" y="33">Zephyr · 实时系统</text></g>
+
+      <g transform="translate(32 161)"><rect width="170" height="54" rx="15" fill="#10243A" stroke="#38BDF8"/><circle cx="25" cy="27" r="8" fill="#38BDF8"/><text x="43" y="33">Flutter · 跨端应用</text></g>
+      <g transform="translate(217 161)"><rect width="170" height="54" rx="15" fill="#17213B" stroke="#FACC15"/><circle cx="25" cy="27" r="8" fill="#FACC15"/><text x="43" y="33">Python · 自动化</text></g>
+      <g transform="translate(402 161)"><rect width="170" height="54" rx="15" fill="#0C2730" stroke="#22D3EE"/><circle cx="25" cy="27" r="8" fill="#22D3EE"/><text x="43" y="33">Go · 服务开发</text></g>
+      <g transform="translate(587 161)"><rect width="140" height="54" rx="15" fill="#10243A" stroke="#2496ED"/><circle cx="25" cy="27" r="8" fill="#2496ED"/><text x="43" y="33">Docker</text></g>
+      <g transform="translate(742 161)"><rect width="125" height="54" rx="15" fill="#28251A" stroke="#FACC15"/><circle cx="25" cy="27" r="8" fill="#FACC15"/><text x="43" y="33">Linux</text></g>
+      <g transform="translate(882 161)"><rect width="126" height="54" rx="15" fill="#2B1714" stroke="#F97316"/><circle cx="25" cy="27" r="8" fill="#F97316"/><text x="43" y="33">Git</text></g>
+    </g>
+  </g>
+</svg>
