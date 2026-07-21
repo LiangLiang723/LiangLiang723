@@ -1,60 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="390" viewBox="0 0 1200 390" role="img" aria-labelledby="title desc">
-  <title id="title">亮亮的 Apple 风格主页首屏（dark）</title>
-  <desc id="desc">显示 LiangLiang723、嵌入式软件工程师身份、开发理念与核心技术方向</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+  <title id="title">亮亮的 Apple Editorial 2.0 主页首屏（dark）</title>
+  <desc id="desc">显示 LiangLiang723、嵌入式软件工程师身份、开发理念和核心技术方向</desc>
   <defs>
-    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#101012"/>
-      <stop offset="1" stop-color="#000000"/>
+    <linearGradient id="heroSurface" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1C1C1E"/>
+      <stop offset="1" stop-color="#2C2C2E"/>
     </linearGradient>
-    <linearGradient id="blueOrb" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#64D2FF"/>
-      <stop offset="0.56" stop-color="#0A84FF"/>
-      <stop offset="1" stop-color="#BF5AF2"/>
-    </linearGradient>
-    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FFFFFF16"/>
-      <stop offset="1" stop-color="#1C1C1E"/>
-    </linearGradient>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
-      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#00000066"/>
-    </filter>
-    <filter id="smallShadow" x="-30%" y="-30%" width="160%" height="180%">
-      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#00000066"/>
+    <radialGradient id="blueOrb" cx="32%" cy="26%" r="74%">
+      <stop offset="0" stop-color="#0A84FF" stop-opacity="0.28"/>
+      <stop offset="0.58" stop-color="#0A84FF" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#0A84FF" stop-opacity="0.04"/>
+    </radialGradient>
+    <filter id="cardShadow" x="-10%" y="-20%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#00000000"/>
     </filter>
   </defs>
   <style>
     text { font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; }
     .display { font-weight: 760; letter-spacing: -2.2px; }
-    .title { font-weight: 720; letter-spacing: -0.6px; }
+    .title { font-weight: 700; letter-spacing: -0.5px; }
     .body { font-weight: 460; }
-    .label { font-weight: 620; letter-spacing: 0.2px; }
+    .label { font-weight: 620; letter-spacing: 0.1px; }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
   </style>
-  <rect width="1200" height="390" rx="34" fill="url(#canvas)"/>
-  <g filter="url(#shadow)">
-    <rect x="30" y="28" width="1140" height="334" rx="34" fill="url(#glass)" stroke="#3A3A3C" stroke-width="1"/>
-  </g>
-  <circle cx="1015" cy="190" r="116" fill="url(#blueOrb)" opacity="0.96"/>
-  <circle cx="978" cy="151" r="46" fill="#FFFFFF" opacity="0.18"/>
-  <path d="M958 229c36 21 93 16 128-21" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" opacity="0.26"/>
-  <text x="82" y="92" font-size="20" fill="#0A84FF" class="label" text-anchor="start">Hello, I’m 亮亮</text>
-  <text x="78" y="166" font-size="66" fill="#F5F5F7" class="display" text-anchor="start">LiangLiang723</text>
-  <text x="82" y="211" font-size="28" fill="#D1D1D6" class="title" text-anchor="start">嵌入式软件工程师</text>
-  <text x="82" y="257" font-size="20" fill="#D1D1D6" class="body" text-anchor="start">让复杂系统保持清晰，让可靠软件持续演进。</text>
-  <rect x="82" y="292" width="132" height="42" rx="21" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
-<circle cx="104" cy="313" r="6" fill="#0A84FF"/>
-<text x="120" y="319" font-size="15" fill="#D1D1D6" class="label" text-anchor="start">C / C++</text>
-  <rect x="226" y="292" width="112" height="42" rx="21" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
-<circle cx="248" cy="313" r="6" fill="#30D158"/>
-<text x="264" y="319" font-size="15" fill="#D1D1D6" class="label" text-anchor="start">RTOS</text>
-  <rect x="350" y="292" width="122" height="42" rx="21" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
-<circle cx="372" cy="313" r="6" fill="#64D2FF"/>
-<text x="388" y="319" font-size="15" fill="#D1D1D6" class="label" text-anchor="start">STM32</text>
-  <rect x="484" y="292" width="128" height="42" rx="21" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
-<circle cx="506" cy="313" r="6" fill="#0A84FF"/>
-<text x="522" y="319" font-size="15" fill="#D1D1D6" class="label" text-anchor="start">Flutter</text>
-  <rect x="624" y="292" width="158" height="42" rx="21" fill="#242426" stroke="#3A3A3C" stroke-width="1"/>
-<circle cx="646" cy="313" r="6" fill="#BF5AF2"/>
-<text x="662" y="319" font-size="15" fill="#D1D1D6" class="label" text-anchor="start">Self-hosted</text>
+  <rect x="8" y="8" width="1184" height="284" rx="24" fill="url(#heroSurface)" stroke="#38383A" stroke-width="1"/>
+  <circle cx="1010" cy="148" r="78" fill="url(#blueOrb)"/>
+  <circle cx="985" cy="122" r="24" fill="#0A84FF" opacity="0.08"/>
+  <text x="60" y="54" font-size="17" fill="#0A84FF" class="label" text-anchor="start">你好，我是亮亮</text>
+  <text x="56" y="116" font-size="58" fill="#F5F5F7" class="display" text-anchor="start">LiangLiang723</text>
+  <text x="60" y="153" font-size="24" fill="#A1A1A6" class="title" text-anchor="start">嵌入式软件工程师</text>
+  <text x="60" y="205" font-size="22" fill="#F5F5F7" class="title" text-anchor="start">让复杂系统保持清晰，</text>
+  <text x="60" y="236" font-size="22" fill="#F5F5F7" class="title" text-anchor="start">让可靠软件持续演进。</text>
+  <text x="60" y="271" font-size="16" fill="#A1A1A6" class="label" text-anchor="start">C / C++ · RTOS · STM32 · Flutter</text>
 
 </svg>
