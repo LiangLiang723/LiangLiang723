@@ -1,4 +1,4 @@
-name: 更新 Apple Editorial 2.0 GitHub 主页
+name: 更新 Linear GitHub 主页
 
 on:
   workflow_dispatch:
@@ -7,13 +7,13 @@ on:
   push:
     paths:
       - "README.md"
-      - "assets/apple/**"
+      - "assets/linear/**"
       - ".github/scripts/**"
       - ".github/workflows/profile.yml"
   pull_request:
     paths:
       - "README.md"
-      - "assets/apple/**"
+      - "assets/linear/**"
       - ".github/scripts/**"
       - ".github/workflows/profile.yml"
 
@@ -21,12 +21,12 @@ permissions:
   contents: write
 
 concurrency:
-  group: github-profile-${{ github.ref }}
+  group: linear-profile-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   validate:
-    name: 验证主页结构与资源
+    name: 验证 Linear 主页结构
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -36,17 +36,17 @@ jobs:
         with:
           show-progress: false
 
-      - name: 生成 Editorial 2.0 明暗主题资源
-        run: python3 .github/scripts/generate_apple_assets.py
+      - name: 生成 Linear 明暗主题资源
+        run: python3 .github/scripts/generate_linear_assets.py
 
-      - name: 验证 Editorial 2.0 主页结构
+      - name: 验证 Linear 主页
         run: python3 .github/scripts/validate_profile.py
 
   build-profile:
-    name: 构建主页与统计卡片
+    name: 更新主页数据与资源
     needs: validate
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
 
     steps:
       - name: 检出仓库
@@ -55,74 +55,43 @@ jobs:
           fetch-depth: 0
           show-progress: false
 
-      - name: 生成 Editorial 2.0 明暗主题资源
-        run: python3 .github/scripts/generate_apple_assets.py
-
-      - name: 生成明亮主题统计卡片
-        uses: vn7n24fzkq/github-profile-summary-cards@release
+      - name: 更新 GitHub 主页数据
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          USERNAME: ${{ github.repository_owner }}
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-          UTC_OFFSET: 9
-          EXCLUDE: ""
-          THEME: github
-          AUTO_PUSH: false
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        run: python3 .github/scripts/fetch_profile_stats.py
 
-      - name: 暂存明亮主题统计卡片
-        run: |
-          rm -rf /tmp/profile-summary-github
-          cp -a profile-summary-card-output/github /tmp/profile-summary-github
+      - name: 生成 Linear 明暗主题资源
+        run: python3 .github/scripts/generate_linear_assets.py
 
-      - name: 生成深色主题统计卡片
-        uses: vn7n24fzkq/github-profile-summary-cards@release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          USERNAME: ${{ github.repository_owner }}
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-          UTC_OFFSET: 9
-          EXCLUDE: ""
-          THEME: github_dark
-          AUTO_PUSH: false
-
-      - name: 恢复明亮主题统计卡片
-        run: |
-          mkdir -p profile-summary-card-output
-          rm -rf profile-summary-card-output/github
-          mv /tmp/profile-summary-github profile-summary-card-output/github
-
-      - name: 统一统计卡片样式
-        run: python3 .github/scripts/style_summary_cards.py
-
-      - name: 验证完整主页资源
-        run: python3 .github/scripts/validate_profile.py --require-summary-cards
+      - name: 验证 Linear 主页
+        run: python3 .github/scripts/validate_profile.py
 
       - name: 提交生成结果
         if: github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A assets profile-summary-card-output/github profile-summary-card-output/github_dark
-          git diff --cached --quiet || git commit -m "🎨 更新 Editorial 2.0 主页资源"
+          git add -A assets/linear
+          git diff --cached --quiet || git commit -m "📊 更新 Linear 主页数据"
           git push origin HEAD:${GITHUB_REF_NAME}
 
   contribution-snake:
-    name: 生成蓝灰色贡献轨迹
+    name: 生成 Linear 紫蓝色贡献轨迹
     if: github.event_name != 'pull_request'
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-      - name: 生成亮色和深色 SVG
+      - name: 生成明暗主题贡献轨迹
         uses: Platane/snk/svg-only@v3
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg?color_snake=%230071E3&color_dots=%23EBEDF0,%23D6E8FA,%239AC7F7,%235AA7F2,%230071E3
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark&color_snake=%230A84FF&color_dots=%231C1C1E,%232C3E50,%233D5F7A,%235A8DB8,%230A84FF
+            dist/github-contribution-grid-snake.svg?color_snake=%236E56CF&color_dots=%23ECECF0,%23D8D4F2,%23B9B1EA,%239185DE,%236E56CF
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark&color_snake=%238B7CF6&color_dots=%2316171A,%23292735,%233F3A5A,%23625A94,%238B7CF6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -131,6 +100,6 @@ jobs:
         with:
           target_branch: output
           build_dir: dist
-          commit_message: "🐍 更新蓝灰色 GitHub 贡献轨迹"
+          commit_message: "🐍 更新 Linear 紫蓝色贡献轨迹"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
