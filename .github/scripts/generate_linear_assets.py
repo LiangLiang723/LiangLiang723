@@ -111,7 +111,7 @@ def svg_document(*, title: str, description: str, height: int, body: str, theme:
 
 def render_hero(theme: Theme) -> str:
     height = 238
-    body = f'''  <rect x="1" y="1" width="1198" height="236" rx="18" fill="{theme.surface}" stroke="{theme.border}" stroke-width="1"/>
+    body = f'''  <rect x="1" y="1" width="1198" height="236" rx="18" fill="{theme.background}" stroke="{theme.border}" stroke-width="1"/>
   <rect x="1" y="1" width="1198" height="236" rx="18" fill="url(#grid)"/>
   <ellipse cx="1035" cy="94" rx="235" ry="180" fill="url(#glowA)"/>
   <ellipse cx="1105" cy="174" rx="160" ry="118" fill="url(#glowB)"/>
@@ -145,7 +145,7 @@ def stat_item(x: int, *, label: str, value: str, theme: Theme) -> str:
 
 def render_stats(theme: Theme, stats: dict[str, object]) -> str:
     height = 132
-    body = f'''  <rect x="1" y="1" width="1198" height="130" rx="16" fill="{theme.surface}" stroke="{theme.border}" stroke-width="1"/>
+    body = f'''  <rect x="1" y="1" width="1198" height="130" rx="16" fill="{theme.background}" stroke="{theme.border}" stroke-width="1"/>
   <rect x="1" y="1" width="1198" height="130" rx="16" fill="url(#grid)" opacity="0.42"/>
   <rect x="52" y="32" width="3" height="66" rx="1.5" fill="url(#accentLine)"/>
 {stat_item(78, label='公开仓库', value=str(stats['public_repos']), theme=theme)}
