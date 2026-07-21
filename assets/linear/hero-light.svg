@@ -3,7 +3,7 @@
   <desc id="desc">显示 LiangLiang723、亮亮、嵌入式软件工程师和开发方向</desc>
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#1717190A" stroke-width="1"/>
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#171719" stroke-opacity="0.035" stroke-width="1"/>
     </pattern>
     <radialGradient id="glowA" cx="50%" cy="50%" r="50%">
       <stop offset="0" stop-color="#6E56CF" stop-opacity="0.26"/>
@@ -20,14 +20,14 @@
     </linearGradient>
   </defs>
   <style>
-    text { font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; }
+    text { font-family: 'Noto Sans CJK SC',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; }
     .display { font-weight: 720; letter-spacing: -2px; }
     .title { font-weight: 650; letter-spacing: -0.35px; }
     .body { font-weight: 430; }
     .label { font-weight: 560; letter-spacing: 0.15px; }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
   </style>
-  <rect x="1" y="1" width="1198" height="236" rx="18" fill="#F7F7F8" stroke="#17171916" stroke-width="1"/>
+  <rect x="1" y="1" width="1198" height="236" rx="18" fill="#F7F7F8" stroke="#171719" stroke-opacity="0.08" stroke-width="1"/>
   <rect x="1" y="1" width="1198" height="236" rx="18" fill="url(#grid)"/>
   <ellipse cx="1035" cy="94" rx="235" ry="180" fill="url(#glowA)"/>
   <ellipse cx="1105" cy="174" rx="160" ry="118" fill="url(#glowB)"/>
@@ -38,8 +38,8 @@
   <text x="54" y="199" font-size="17" fill="#6B6B70" class="body">专注设备控制、RTOS 与可靠软件架构。</text>
   <g opacity="0.68">
     <circle cx="1052" cy="112" r="4" fill="#6E56CF"/>
-    <line x1="1052" y1="112" x2="1122" y2="72" stroke="#17171916"/>
-    <line x1="1052" y1="112" x2="1114" y2="158" stroke="#17171916"/>
+    <line x1="1052" y1="112" x2="1122" y2="72" stroke="#171719" stroke-opacity="0.08"/>
+    <line x1="1052" y1="112" x2="1114" y2="158" stroke="#171719" stroke-opacity="0.08"/>
     <circle cx="1122" cy="72" r="3" fill="#5E6AD2"/>
     <circle cx="1114" cy="158" r="3" fill="#5E6AD2"/>
   </g>
