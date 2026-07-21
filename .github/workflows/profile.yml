@@ -44,7 +44,6 @@ jobs:
 
   build-profile:
     name: 构建主页与统计卡片
-    if: github.event_name != 'pull_request'
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -65,7 +64,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           USERNAME: ${{ github.repository_owner }}
-          BRANCH_NAME: ${{ github.ref_name }}
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
           UTC_OFFSET: 9
           EXCLUDE: ""
           THEME: github
@@ -77,7 +76,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           USERNAME: ${{ github.repository_owner }}
-          BRANCH_NAME: ${{ github.ref_name }}
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
           UTC_OFFSET: 9
           EXCLUDE: ""
           THEME: github_dark
@@ -90,6 +89,7 @@ jobs:
         run: python3 .github/scripts/validate_profile.py --require-summary-cards
 
       - name: 提交生成结果
+        if: github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
