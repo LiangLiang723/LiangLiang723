@@ -32,22 +32,7 @@
 
 <div align="center">
 
-### 嵌入式与系统开发
-
-<img src="https://img.shields.io/badge/C-嵌入式开发-A8B9CC?style=for-the-badge&logo=c&logoColor=111827" alt="C（编程语言）嵌入式开发" />
-<img src="https://img.shields.io/badge/C%2B%2B-系统开发-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++（编程语言）系统开发" />
-<img src="https://img.shields.io/badge/STM32-MCU-03234B?style=for-the-badge&logo=stmicroelectronics&logoColor=white" alt="STM32（微控制器系列）" />
-<img src="https://img.shields.io/badge/FreeRTOS-实时系统-22C55E?style=for-the-badge&logo=freertos&logoColor=white" alt="FreeRTOS（实时操作系统）" />
-<img src="https://img.shields.io/badge/Zephyr-实时系统-7C3AED?style=for-the-badge&logo=zephyrproject&logoColor=white" alt="Zephyr（实时操作系统）" />
-
-### 应用、工具与基础设施
-
-<img src="https://img.shields.io/badge/Flutter-跨端应用-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter（跨平台应用框架）" />
-<img src="https://img.shields.io/badge/Python-自动化-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python（编程语言）自动化" />
-<img src="https://img.shields.io/badge/Go-服务开发-00ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go（编程语言）服务开发" />
-<img src="https://img.shields.io/badge/Docker-容器部署-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker（容器平台）部署" />
-<img src="https://img.shields.io/badge/Linux-服务器-FCC624?style=for-the-badge&logo=linux&logoColor=111827" alt="Linux（开源操作系统）服务器" />
-<img src="https://img.shields.io/badge/Git-版本控制-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git（版本控制工具）" />
+<img src="./assets/tech-stack.svg" width="98%" alt="亮亮的嵌入式与应用开发技术栈" />
 
 </div>
 
