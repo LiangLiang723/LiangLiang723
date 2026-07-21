@@ -151,8 +151,12 @@ def validate() -> list[str]:
             errors.append(f"{path.relative_to(ROOT)} must be {width}x{height}")
         if root.find("svg:title", ns) is None or root.find("svg:desc", ns) is None:
             errors.append(f"{path.relative_to(ROOT)} must contain title and desc")
-        if "system-ui" not in raw or "prefers-reduced-motion" not in raw:
-            errors.append(f"{path.relative_to(ROOT)} is missing typography or reduced-motion rules")
+        if "system-ui" not in raw or "Noto Sans CJK SC" not in raw or "prefers-reduced-motion" not in raw:
+            errors.append(f"{path.relative_to(ROOT)} is missing compatible typography or reduced-motion rules")
+        if re.search(r"#[0-9A-Fa-f]{8}\b", raw):
+            errors.append(f"{path.relative_to(ROOT)} must use explicit opacity instead of 8-digit hex colors")
+        if "stroke-opacity=" not in raw:
+            errors.append(f"{path.relative_to(ROOT)} is missing explicit low-contrast stroke opacity")
         required_tokens = ("#F7F7F8", "#6E56CF") if name.endswith("-light.svg") else ("#0F1012", "#8B7CF6")
         for token in required_tokens:
             if token not in raw:
