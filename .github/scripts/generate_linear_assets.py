@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "assets" / "linear"
 STATS_PATH = OUT / "profile-stats.json"
 WIDTH = 1200
-FONT = "system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif"
+FONT = "'Noto Sans CJK SC',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif"
 
 
 @dataclass(frozen=True)
@@ -20,9 +20,11 @@ class Theme:
     background: str
     surface: str
     grid: str
+    grid_opacity: float
     text: str
     secondary: str
     border: str
+    border_opacity: float
     accent: str
     accent_secondary: str
 
@@ -31,10 +33,12 @@ LIGHT = Theme(
     name="light",
     background="#F7F7F8",
     surface="#FAFAFB",
-    grid="#1717190A",
+    grid="#171719",
+    grid_opacity=0.035,
     text="#171719",
     secondary="#6B6B70",
-    border="#17171916",
+    border="#171719",
+    border_opacity=0.08,
     accent="#6E56CF",
     accent_secondary="#5E6AD2",
 )
@@ -43,10 +47,12 @@ DARK = Theme(
     name="dark",
     background="#0F1012",
     surface="#121316",
-    grid="#FFFFFF0A",
+    grid="#FFFFFF",
+    grid_opacity=0.035,
     text="#F7F7F8",
     secondary="#96969D",
-    border="#FFFFFF1A",
+    border="#FFFFFF",
+    border_opacity=0.10,
     accent="#8B7CF6",
     accent_secondary="#6E7BF2",
 )
@@ -80,7 +86,7 @@ def svg_document(*, title: str, description: str, height: int, body: str, theme:
   <desc id="desc">{escape(description)}</desc>
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="{theme.grid}" stroke-width="1"/>
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="{theme.grid}" stroke-opacity="{theme.grid_opacity}" stroke-width="1"/>
     </pattern>
     <radialGradient id="glowA" cx="50%" cy="50%" r="50%">
       <stop offset="0" stop-color="{theme.accent}" stop-opacity="0.26"/>
@@ -111,7 +117,7 @@ def svg_document(*, title: str, description: str, height: int, body: str, theme:
 
 def render_hero(theme: Theme) -> str:
     height = 238
-    body = f'''  <rect x="1" y="1" width="1198" height="236" rx="18" fill="{theme.background}" stroke="{theme.border}" stroke-width="1"/>
+    body = f'''  <rect x="1" y="1" width="1198" height="236" rx="18" fill="{theme.background}" stroke="{theme.border}" stroke-opacity="{theme.border_opacity}" stroke-width="1"/>
   <rect x="1" y="1" width="1198" height="236" rx="18" fill="url(#grid)"/>
   <ellipse cx="1035" cy="94" rx="235" ry="180" fill="url(#glowA)"/>
   <ellipse cx="1105" cy="174" rx="160" ry="118" fill="url(#glowB)"/>
@@ -122,8 +128,8 @@ def render_hero(theme: Theme) -> str:
   <text x="54" y="199" font-size="17" fill="{theme.secondary}" class="body">专注设备控制、RTOS 与可靠软件架构。</text>
   <g opacity="0.68">
     <circle cx="1052" cy="112" r="4" fill="{theme.accent}"/>
-    <line x1="1052" y1="112" x2="1122" y2="72" stroke="{theme.border}"/>
-    <line x1="1052" y1="112" x2="1114" y2="158" stroke="{theme.border}"/>
+    <line x1="1052" y1="112" x2="1122" y2="72" stroke="{theme.border}" stroke-opacity="{theme.border_opacity}"/>
+    <line x1="1052" y1="112" x2="1114" y2="158" stroke="{theme.border}" stroke-opacity="{theme.border_opacity}"/>
     <circle cx="1122" cy="72" r="3" fill="{theme.accent_secondary}"/>
     <circle cx="1114" cy="158" r="3" fill="{theme.accent_secondary}"/>
   </g>
@@ -145,13 +151,13 @@ def stat_item(x: int, *, label: str, value: str, theme: Theme) -> str:
 
 def render_stats(theme: Theme, stats: dict[str, object]) -> str:
     height = 132
-    body = f'''  <rect x="1" y="1" width="1198" height="130" rx="16" fill="{theme.background}" stroke="{theme.border}" stroke-width="1"/>
+    body = f'''  <rect x="1" y="1" width="1198" height="130" rx="16" fill="{theme.background}" stroke="{theme.border}" stroke-opacity="{theme.border_opacity}" stroke-width="1"/>
   <rect x="1" y="1" width="1198" height="130" rx="16" fill="url(#grid)" opacity="0.42"/>
   <rect x="52" y="32" width="3" height="66" rx="1.5" fill="url(#accentLine)"/>
 {stat_item(78, label='公开仓库', value=str(stats['public_repos']), theme=theme)}
-  <line x1="380" y1="32" x2="380" y2="100" stroke="{theme.border}"/>
+  <line x1="380" y1="32" x2="380" y2="100" stroke="{theme.border}" stroke-opacity="{theme.border_opacity}"/>
 {stat_item(430, label='过去一年贡献', value=str(stats['contributions']), theme=theme)}
-  <line x1="750" y1="32" x2="750" y2="100" stroke="{theme.border}"/>
+  <line x1="750" y1="32" x2="750" y2="100" stroke="{theme.border}" stroke-opacity="{theme.border_opacity}"/>
 {stat_item(800, label='主要语言', value=str(stats['primary_language']), theme=theme)}
   <circle cx="1137" cy="65" r="5" fill="{theme.accent}"/>
   <circle cx="1137" cy="65" r="12" fill="none" stroke="{theme.accent}" stroke-opacity="0.22"/>
