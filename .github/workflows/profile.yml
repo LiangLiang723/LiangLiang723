@@ -39,24 +39,8 @@ jobs:
       - name: 生成 Editorial 2.0 明暗主题资源
         run: python3 .github/scripts/generate_apple_assets.py
 
-      - name: 执行 Editorial 2.0 主页验证
-        id: profile_validation
-        continue-on-error: true
-        run: python3 .github/scripts/validate_profile.py > profile-validation.log 2>&1
-
-      - name: 上传验证日志
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: profile-validation-log
-          path: profile-validation.log
-          retention-days: 1
-
-      - name: 检查验证结果
-        if: always()
-        run: |
-          cat profile-validation.log
-          test "${{ steps.profile_validation.outcome }}" = "success"
+      - name: 验证 Editorial 2.0 主页结构
+        run: python3 .github/scripts/validate_profile.py
 
   build-profile:
     name: 构建主页与统计卡片
@@ -102,8 +86,8 @@ jobs:
       - name: 统一统计卡片样式
         run: python3 .github/scripts/style_summary_cards.py
 
-      - name: 验证主页资源
-        run: python3 .github/scripts/validate_profile.py
+      - name: 验证完整主页资源
+        run: python3 .github/scripts/validate_profile.py --require-summary-cards
 
       - name: 提交生成结果
         run: |
