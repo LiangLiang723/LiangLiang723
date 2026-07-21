@@ -39,8 +39,24 @@ jobs:
       - name: 生成 Linear 明暗主题资源
         run: python3 .github/scripts/generate_linear_assets.py
 
-      - name: 验证 Linear 主页
-        run: python3 .github/scripts/validate_profile.py
+      - name: 执行 Linear 主页验证
+        id: linear_validation
+        continue-on-error: true
+        run: python3 .github/scripts/validate_profile.py > linear-validation.log 2>&1
+
+      - name: 上传验证诊断
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linear-validation-log
+          path: linear-validation.log
+          retention-days: 1
+
+      - name: 检查验证结果
+        if: always()
+        run: |
+          cat linear-validation.log
+          test "${{ steps.linear_validation.outcome }}" = "success"
 
   build-profile:
     name: 更新主页数据与资源
