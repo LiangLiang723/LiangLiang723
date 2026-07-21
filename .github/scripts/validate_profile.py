@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Validate the Apple Editorial 2.0 GitHub profile and workflow wiring."""
+"""Validate the Linear-inspired GitHub profile and workflow wiring."""
 from __future__ import annotations
 
-import argparse
 import hashlib
+import json
 import re
 import subprocess
 import sys
@@ -13,277 +13,183 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 README = ROOT / "README.md"
 WORKFLOW = ROOT / ".github" / "workflows" / "profile.yml"
-GENERATOR = ROOT / ".github" / "scripts" / "generate_apple_assets.py"
-STYLER = ROOT / ".github" / "scripts" / "style_summary_cards.py"
-APPLE_DIR = ROOT / "assets" / "apple"
-SUMMARY_ROOT = ROOT / "profile-summary-card-output"
+GENERATOR = ROOT / ".github" / "scripts" / "generate_linear_assets.py"
+FETCHER = ROOT / ".github" / "scripts" / "fetch_profile_stats.py"
+ASSET_DIR = ROOT / "assets" / "linear"
+STATS_PATH = ASSET_DIR / "profile-stats.json"
 
-EXPECTED_ASSETS = {
-    "hero-light.svg", "hero-dark.svg",
-    "profile-light.svg", "profile-dark.svg",
-    "tech-stack-light.svg", "tech-stack-dark.svg",
-    "project-ai-berkshire-light.svg", "project-ai-berkshire-dark.svg",
-    "project-supercom-light.svg", "project-supercom-dark.svg",
-    "project-multitimer-light.svg", "project-multitimer-dark.svg",
-    "project-learning-light.svg", "project-learning-dark.svg",
-    "focus-light.svg", "focus-dark.svg",
-    "footer-light.svg", "footer-dark.svg",
-}
-
-CUSTOM_PAIRS = [
-    ("hero-light.svg", "hero-dark.svg"),
-    ("profile-light.svg", "profile-dark.svg"),
-    ("tech-stack-light.svg", "tech-stack-dark.svg"),
-    ("project-ai-berkshire-light.svg", "project-ai-berkshire-dark.svg"),
-    ("project-supercom-light.svg", "project-supercom-dark.svg"),
-    ("project-multitimer-light.svg", "project-multitimer-dark.svg"),
-    ("project-learning-light.svg", "project-learning-dark.svg"),
-    ("focus-light.svg", "focus-dark.svg"),
-    ("footer-light.svg", "footer-dark.svg"),
+EXPECTED_ASSETS = {"hero-light.svg", "hero-dark.svg", "stats-light.svg", "stats-dark.svg"}
+REQUIRED_SECTIONS = ["## 核心能力", "## 当前研究方向", "## 开发数据", "## 贡献轨迹"]
+FORBIDDEN_README_TOKENS = [
+    "assets/apple/",
+    "profile-summary-card-output/",
+    "## 精选项目",
+    "最近动态",
+    "查看全部仓库",
 ]
-
-PROJECT_URLS = [
-    "https://github.com/LiangLiang723/ai-berkshire",
-    "https://github.com/LiangLiang723/SuperCom",
-    "https://github.com/LiangLiang723/MultiTimer",
-    "https://github.com/LiangLiang723/English-level-up-tips",
+FORBIDDEN_PATHS = [
+    ROOT / "assets" / "apple",
+    ROOT / "profile-summary-card-output",
+    ROOT / ".github" / "scripts" / "generate_apple_assets.py",
+    ROOT / ".github" / "scripts" / "style_summary_cards.py",
 ]
-
-FORBIDDEN_EXTERNAL = [
-    "img.shields.io",
-    "github-readme-stats.vercel.app",
-    "capsule-render",
-]
-
-FORBIDDEN_ASSET_TOKENS = [
-    "#A855F7",
-    "#22D3EE",
-    "#34C759",
-    "#30D158",
-    "#FF9F0A",
-    "#AF52DE",
-    "#BF5AF2",
-    "Featured project",
-    "Technical capabilities",
-    "Focused · Reliable · Maintainable",
-    ">Embedded<",
-    ">Application<",
-    ">Infrastructure<",
-]
-
-SUMMARY_FILES = {"0-profile-details.svg", "1-repos-per-language.svg", "3-stats.svg"}
-SUMMARY_REFERENCES = [
-    f"profile-summary-card-output/{theme}/{name}"
-    for theme in ("github", "github_dark")
-    for name in sorted(SUMMARY_FILES)
-]
-SUMMARY_PALETTES = {
-    "github": {"surface": "#FFFFFF", "border": "#D2D2D7", "accent": "#0071E3"},
-    "github_dark": {"surface": "#1C1C1E", "border": "#38383A", "accent": "#0A84FF"},
-}
-SUMMARY_LOCALIZED_TOKENS = {
-    "0-profile-details.svg": ("GitHub 贡献：", "公开仓库：", "加入 GitHub："),
-    "1-repos-per-language.svg": ("主要编程语言",),
-    "3-stats.svg": ("开发统计", "星标数：", "提交数：", "合并请求：", "议题数：", "参与仓库："),
-}
-
-PROJECT_ASSETS = [
-    "project-ai-berkshire-light.svg", "project-ai-berkshire-dark.svg",
-    "project-supercom-light.svg", "project-supercom-dark.svg",
-    "project-multitimer-light.svg", "project-multitimer-dark.svg",
-    "project-learning-light.svg", "project-learning-dark.svg",
+LOCAL_PAIRS = [
+    ("assets/linear/hero-light.svg", "assets/linear/hero-dark.svg"),
+    ("assets/linear/stats-light.svg", "assets/linear/stats-dark.svg"),
 ]
 
 
 def local_references(markdown: str) -> set[str]:
-    refs: set[str] = set()
-    for match in re.finditer(r'(?:src|srcset)="(\./[^"?#]+)', markdown):
-        refs.add(match.group(1)[2:])
-    return refs
+    return {
+        match.group(1)[2:]
+        for match in re.finditer(r'(?:src|srcset)="(\./[^"?#]+)', markdown)
+    }
 
 
-def hashes() -> dict[str, str]:
+def asset_hashes() -> dict[str, str]:
     return {
         path.name: hashlib.sha256(path.read_bytes()).hexdigest()
-        for path in sorted(APPLE_DIR.glob("*.svg"))
+        for path in sorted(ASSET_DIR.glob("*.svg"))
     }
 
 
 def validate_determinism(errors: list[str]) -> None:
-    if not GENERATOR.is_file():
-        errors.append("Missing asset generator")
+    first = subprocess.run([sys.executable, str(GENERATOR)], cwd=ROOT, capture_output=True, text=True)
+    if first.returncode:
+        errors.append(f"Linear asset generator failed: {first.stderr.strip() or first.stdout.strip()}")
         return
-    result_a = subprocess.run([sys.executable, str(GENERATOR)], cwd=ROOT, capture_output=True, text=True)
-    if result_a.returncode:
-        errors.append(f"Asset generator failed: {result_a.stderr.strip() or result_a.stdout.strip()}")
+    before = asset_hashes()
+    second = subprocess.run([sys.executable, str(GENERATOR)], cwd=ROOT, capture_output=True, text=True)
+    if second.returncode:
+        errors.append(f"Linear asset generator failed on second run: {second.stderr.strip() or second.stdout.strip()}")
         return
-    hash_a = hashes()
-    result_b = subprocess.run([sys.executable, str(GENERATOR)], cwd=ROOT, capture_output=True, text=True)
-    if result_b.returncode:
-        errors.append(f"Asset generator failed on second run: {result_b.stderr.strip() or result_b.stdout.strip()}")
+    if before != asset_hashes():
+        errors.append("Linear asset generator is not deterministic")
+
+
+def validate_stats_json(errors: list[str]) -> None:
+    if not STATS_PATH.is_file():
+        errors.append("Missing assets/linear/profile-stats.json")
         return
-    if hash_a != hashes():
-        errors.append("Asset generator is not deterministic across consecutive runs")
+    try:
+        payload = json.loads(STATS_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"Invalid profile stats JSON: {exc}")
+        return
+    for key in ("public_repos", "contributions"):
+        value = payload.get(key)
+        if not isinstance(value, int) or value < 0:
+            errors.append(f"Profile stats field {key} must be a non-negative integer")
+    for key in ("primary_language", "updated_at"):
+        value = payload.get(key)
+        if not isinstance(value, str) or not value.strip():
+            errors.append(f"Profile stats field {key} must be a non-empty string")
 
 
-def validate_summary_cards(errors: list[str]) -> None:
-    for theme, palette in SUMMARY_PALETTES.items():
-        theme_dir = SUMMARY_ROOT / theme
-        if not theme_dir.is_dir():
-            errors.append(f"Missing generated summary theme directory: {theme_dir.relative_to(ROOT)}")
-            continue
-        files = {path.name for path in theme_dir.iterdir() if path.is_file()}
-        for name in sorted(SUMMARY_FILES - files):
-            errors.append(f"Missing generated summary card: {theme_dir.relative_to(ROOT)}/{name}")
-        for name in sorted(files - SUMMARY_FILES):
-            errors.append(f"Unexpected generated summary file: {theme_dir.relative_to(ROOT)}/{name}")
-        for name in sorted(SUMMARY_FILES & files):
-            path = theme_dir / name
-            raw = path.read_text(encoding="utf-8")
-            try:
-                ET.fromstring(raw)
-            except ET.ParseError as exc:
-                errors.append(f"Invalid summary-card XML in {path.relative_to(ROOT)}: {exc}")
-                continue
-            for token in (palette["surface"], palette["border"], palette["accent"], 'rx="18"', "system-ui"):
-                if token not in raw:
-                    errors.append(f"{path.relative_to(ROOT)} is missing Editorial summary token: {token}")
-            for token in SUMMARY_LOCALIZED_TOKENS[name]:
-                if token not in raw:
-                    errors.append(f"{path.relative_to(ROOT)} is missing localized label: {token}")
-
-
-def validate(*, require_summary_cards: bool = False) -> list[str]:
+def validate() -> list[str]:
     errors: list[str] = []
-    if not README.is_file():
-        return ["Missing README.md"]
-    if not WORKFLOW.is_file():
-        errors.append("Missing .github/workflows/profile.yml")
-    if not STYLER.is_file():
-        errors.append("Missing .github/scripts/style_summary_cards.py")
+    for required in (README, WORKFLOW, GENERATOR, FETCHER):
+        if not required.is_file():
+            errors.append(f"Missing required file: {required.relative_to(ROOT)}")
+    if errors:
+        return errors
 
     markdown = README.read_text(encoding="utf-8")
-    workflow = WORKFLOW.read_text(encoding="utf-8") if WORKFLOW.is_file() else ""
-    existing = {path.name for path in APPLE_DIR.glob("*.svg")} if APPLE_DIR.is_dir() else set()
-
+    workflow = WORKFLOW.read_text(encoding="utf-8")
+    existing = {path.name for path in ASSET_DIR.glob("*.svg")} if ASSET_DIR.is_dir() else set()
     for name in sorted(EXPECTED_ASSETS - existing):
-        errors.append(f"Missing Apple asset: assets/apple/{name}")
+        errors.append(f"Missing Linear asset: assets/linear/{name}")
     for name in sorted(existing - EXPECTED_ASSETS):
-        errors.append(f"Unexpected Apple asset: assets/apple/{name}")
+        errors.append(f"Unexpected Linear SVG: assets/linear/{name}")
 
+    for path in FORBIDDEN_PATHS:
+        if path.exists():
+            errors.append(f"Legacy profile path still exists: {path.relative_to(ROOT)}")
+
+    for token in FORBIDDEN_README_TOKENS:
+        if token in markdown:
+            errors.append(f"README contains forbidden legacy content: {token}")
+
+    headings = re.findall(r"^## .+$", markdown, flags=re.MULTILINE)
+    if headings != REQUIRED_SECTIONS:
+        errors.append(f"README section order must be {REQUIRED_SECTIONS}, found {headings}")
+
+    picture_blocks = re.findall(r"<picture>.*?</picture>", markdown, flags=re.DOTALL | re.IGNORECASE)
+    for light, dark in LOCAL_PAIRS:
+        matches = [block for block in picture_blocks if light in block or dark in block]
+        if len(matches) != 1:
+            errors.append(f"Expected one picture block for {light}/{dark}, found {len(matches)}")
+            continue
+        block = matches[0]
+        if light not in block or dark not in block:
+            errors.append(f"Incomplete light/dark pair: {light}/{dark}")
+        fallback = re.search(r'<img\s+[^>]*src="([^"]+)"', block, flags=re.IGNORECASE)
+        if not fallback or fallback.group(1) != f"./{light}":
+            errors.append(f"Picture fallback must use ./{light}")
+
+    for ref in sorted(local_references(markdown)):
+        if not (ROOT / ref).is_file():
+            errors.append(f"README references missing local file: {ref}")
+
+    expected_dimensions = {
+        "hero-light.svg": ("1200", "238"),
+        "hero-dark.svg": ("1200", "238"),
+        "stats-light.svg": ("1200", "132"),
+        "stats-dark.svg": ("1200", "132"),
+    }
     ns = {"svg": "http://www.w3.org/2000/svg"}
-    project_dimensions: set[tuple[str, str]] = set()
     for name in sorted(existing & EXPECTED_ASSETS):
-        path = APPLE_DIR / name
+        path = ASSET_DIR / name
         raw = path.read_text(encoding="utf-8")
         try:
             root = ET.fromstring(raw)
         except ET.ParseError as exc:
-            errors.append(f"Invalid XML in {path.relative_to(ROOT)}: {exc}")
+            errors.append(f"Invalid SVG XML in {path.relative_to(ROOT)}: {exc}")
             continue
-        if root.attrib.get("width") != "1200":
-            errors.append(f"{path.relative_to(ROOT)} must use width=1200")
-        view_box = root.attrib.get("viewBox", "")
-        if not view_box.startswith("0 0 1200 "):
-            errors.append(f"{path.relative_to(ROOT)} has invalid viewBox: {view_box!r}")
-        if root.find("svg:title", ns) is None:
-            errors.append(f"{path.relative_to(ROOT)} is missing <title>")
-        if root.find("svg:desc", ns) is None:
-            errors.append(f"{path.relative_to(ROOT)} is missing <desc>")
-        if "prefers-reduced-motion" not in raw:
-            errors.append(f"{path.relative_to(ROOT)} lacks reduced-motion handling")
-        for token in FORBIDDEN_ASSET_TOKENS:
-            if token.lower() in raw.lower():
-                errors.append(f"{path.relative_to(ROOT)} contains forbidden Editorial 1.x token: {token}")
-        expected_accent = "#0071E3" if name.endswith("-light.svg") else "#0A84FF"
-        if expected_accent not in raw:
-            errors.append(f"{path.relative_to(ROOT)} does not use expected accent {expected_accent}")
-        if not name.startswith("footer-") and 'rx="24"' not in raw:
-            errors.append(f"{path.relative_to(ROOT)} is missing the unified 24px main-card radius")
-        if name in PROJECT_ASSETS:
-            project_dimensions.add((root.attrib.get("width", ""), root.attrib.get("height", "")))
+        width, height = expected_dimensions[name]
+        if root.attrib.get("width") != width or root.attrib.get("height") != height:
+            errors.append(f"{path.relative_to(ROOT)} must be {width}x{height}")
+        if root.find("svg:title", ns) is None or root.find("svg:desc", ns) is None:
+            errors.append(f"{path.relative_to(ROOT)} must contain title and desc")
+        if "system-ui" not in raw or "Noto Sans CJK SC" not in raw or "prefers-reduced-motion" not in raw:
+            errors.append(f"{path.relative_to(ROOT)} is missing compatible typography or reduced-motion rules")
+        if re.search(r"#[0-9A-Fa-f]{8}\b", raw):
+            errors.append(f"{path.relative_to(ROOT)} must use explicit opacity instead of 8-digit hex colors")
+        if "stroke-opacity=" not in raw:
+            errors.append(f"{path.relative_to(ROOT)} is missing explicit low-contrast stroke opacity")
+        required_tokens = ("#F7F7F8", "#6E56CF") if name.endswith("-light.svg") else ("#0F1012", "#8B7CF6")
+        for token in required_tokens:
+            if token not in raw:
+                errors.append(f"{path.relative_to(ROOT)} is missing theme token {token}")
 
-    if len(project_dimensions) != 1:
-        errors.append(f"Project cards must share one size, found: {sorted(project_dimensions)}")
-
-    for token in FORBIDDEN_EXTERNAL:
-        if token in markdown:
-            errors.append(f"README contains forbidden external dependency: {token}")
-    if "4-productive-time.svg" in markdown:
-        errors.append("README still references the productive-time card")
-
-    picture_blocks = re.findall(r"<picture>.*?</picture>", markdown, flags=re.DOTALL | re.IGNORECASE)
-    for light, dark in CUSTOM_PAIRS:
-        matching = [block for block in picture_blocks if light in block or dark in block]
-        if len(matching) != 1:
-            errors.append(f"Expected exactly one picture block for {light}/{dark}, found {len(matching)}")
-            continue
-        block = matching[0]
-        if light not in block or dark not in block:
-            errors.append(f"Incomplete light/dark pair in README: {light}/{dark}")
-        fallback = re.search(r'<img\s+[^>]*src="([^"]+)"', block, flags=re.IGNORECASE)
-        if not fallback or not fallback.group(1).endswith(light):
-            errors.append(f"Picture fallback must use light asset: {light}")
-
-    for url in PROJECT_URLS:
-        if markdown.count(url) != 1:
-            errors.append(f"Expected one featured project link: {url}")
-
-    for path in SUMMARY_REFERENCES:
-        if path not in markdown:
-            errors.append(f"README missing summary-card reference: {path}")
-    if require_summary_cards:
-        validate_summary_cards(errors)
-
-    for ref in sorted(local_references(markdown)):
-        if ref.startswith("profile-summary-card-output/") and not require_summary_cards:
-            continue
-        if not (ROOT / ref).is_file():
-            errors.append(f"README references missing local file: {ref}")
-
-    required_sections = ["## 关于我", "## 技术能力", "## 精选项目", "## 开发数据", "## 贡献轨迹", "## 当前方向"]
-    for section in required_sections:
-        if markdown.count(section) != 1:
-            errors.append(f"README must contain exactly one section: {section}")
+    validate_stats_json(errors)
 
     workflow_tokens = [
-        "python3 .github/scripts/style_summary_cards.py",
-        "python3 .github/scripts/validate_profile.py --require-summary-cards",
-        "THEME: github\n",
-        "THEME: github_dark\n",
-        "color_snake=%230071E3",
-        "color_snake=%230A84FF",
-        "color_dots=%23EBEDF0,%23D6E8FA,%239AC7F7,%235AA7F2,%230071E3",
-        "color_dots=%231C1C1E,%232C3E50,%233D5F7A,%235A8DB8,%230A84FF",
+        "python3 .github/scripts/fetch_profile_stats.py",
+        "python3 .github/scripts/generate_linear_assets.py",
+        "python3 .github/scripts/validate_profile.py",
+        "git add -A assets/linear",
+        "color_snake=%236E56CF",
+        "color_snake=%238B7CF6",
+        "color_dots=%23ECECF0,%23D8D4F2,%23B9B1EA,%239185DE,%236E56CF",
+        "color_dots=%2316171A,%23292735,%233F3A5A,%23625A94,%238B7CF6",
     ]
     for token in workflow_tokens:
         if token not in workflow:
-            errors.append(f"Workflow missing required Editorial 2.0 token: {token}")
+            errors.append(f"Workflow missing required Linear token: {token}")
 
     validate_determinism(errors)
     return errors
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--require-summary-cards",
-        action="store_true",
-        help="Require generated and styled summary-card SVG files to exist. Use after the build step.",
-    )
-    return parser.parse_args()
-
-
 def main() -> int:
-    args = parse_args()
-    errors = validate(require_summary_cards=args.require_summary_cards)
+    errors = validate()
     if errors:
         for error in errors:
             print(f"ERROR: {error}")
         print(f"Profile validation failed with {len(errors)} error(s).")
         return 1
-    mode = "full" if args.require_summary_cards else "structural"
-    print(f"Profile validation passed ({mode}).")
+    print("Profile validation passed.")
     return 0
 
 
