@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="96" viewBox="0 0 1200 96" role="img" aria-labelledby="title desc">
+  <title id="title">亮亮主页页尾（light）</title>
+  <desc id="desc">简洁的 Apple 风格页尾分隔与开发理念</desc>
+  <defs>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F5F7"/>
+    </linearGradient>
+    <linearGradient id="blueOrb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#32ADE6"/>
+      <stop offset="0.56" stop-color="#0071E3"/>
+      <stop offset="1" stop-color="#AF52DE"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFFCC"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#00000018"/>
+    </filter>
+    <filter id="smallShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#00000018"/>
+    </filter>
+  </defs>
+  <style>
+    text { font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; }
+    .display { font-weight: 760; letter-spacing: -2.2px; }
+    .title { font-weight: 720; letter-spacing: -0.6px; }
+    .body { font-weight: 460; }
+    .label { font-weight: 620; letter-spacing: 0.2px; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect width="1200" height="96" rx="24" fill="url(#canvas)"/>
+  <line x1="80" y1="26" x2="1120" y2="26" stroke="#D2D2D7" stroke-width="1"/>
+  <text x="600" y="64" font-size="17" fill="#515154" class="label" text-anchor="middle">Keep systems clear. Keep shipping reliable software.</text>
+  <circle cx="1120" cy="64" r="5" fill="#0071E3"/>
+
+</svg>

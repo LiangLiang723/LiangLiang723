@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">项目：AI Berkshire（dark）</title>
+  <desc id="desc">面向 AI 时代的价值投资研究框架</desc>
+  <defs>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101012"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <linearGradient id="blueOrb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#64D2FF"/>
+      <stop offset="0.56" stop-color="#0A84FF"/>
+      <stop offset="1" stop-color="#BF5AF2"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF16"/>
+      <stop offset="1" stop-color="#1C1C1E"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#00000066"/>
+    </filter>
+    <filter id="smallShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#00000066"/>
+    </filter>
+  </defs>
+  <style>
+    text { font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; }
+    .display { font-weight: 760; letter-spacing: -2.2px; }
+    .title { font-weight: 720; letter-spacing: -0.6px; }
+    .body { font-weight: 460; }
+    .label { font-weight: 620; letter-spacing: 0.2px; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect width="1200" height="420" rx="34" fill="url(#canvas)"/>
+  <rect x="38" y="30" width="1124" height="354" rx="34" fill="#1C1C1E" stroke="#3A3A3C" stroke-width="1" filter="url(#smallShadow)"/>
+  <circle cx="132" cy="132" r="58" fill="#0A84FF" opacity="0.14"/>
+  <text x="132" y="148" font-size="48" fill="#0A84FF" class="title" text-anchor="middle">↗</text>
+  <text x="222" y="122" font-size="47" fill="#F5F5F7" class="display" text-anchor="start">AI Berkshire</text>
+  <text x="222" y="171" font-size="25" fill="#D1D1D6" class="body" text-anchor="start">面向 AI 时代的价值投资研究框架</text>
+  <text x="86" y="249" font-size="18" fill="#98989D" class="label" text-anchor="start">Featured project</text>
+  <rect x="86" y="286" width="222" height="54" rx="27" fill="#242426" stroke="#3A3A3C" stroke-width="1"/><text x="197" y="321" font-size="20" fill="#D1D1D6" class="label" text-anchor="middle">AI Agent</text><rect x="324" y="286" width="222" height="54" rx="27" fill="#242426" stroke="#3A3A3C" stroke-width="1"/><text x="435" y="321" font-size="20" fill="#D1D1D6" class="label" text-anchor="middle">Research</text><rect x="562" y="286" width="182" height="54" rx="27" fill="#242426" stroke="#3A3A3C" stroke-width="1"/><text x="653" y="321" font-size="20" fill="#D1D1D6" class="label" text-anchor="middle">Skills</text>
+  <circle cx="1070" cy="207" r="44" fill="#0A2A4A"/>
+  <path d="M1052 207h34m-14-14 14 14-14 14" fill="none" stroke="#0A84FF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1070" y="308" font-size="18" fill="#98989D" class="label" text-anchor="middle">CHART</text>
+
+</svg>
