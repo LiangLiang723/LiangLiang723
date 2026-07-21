@@ -5,13 +5,8 @@
 <br />
 
 <a href="https://github.com/LiangLiang723">
-  <img src="https://img.shields.io/badge/GitHub-代码主页-7C3AED?style=for-the-badge&logo=github&logoColor=white" alt="GitHub（代码托管平台）主页" />
+  <img src="./assets/profile-badges.svg" width="96%" alt="亮亮的 GitHub（代码托管平台）主页与技术方向徽章" />
 </a>
-<a href="https://github.com/LiangLiang723?tab=followers">
-  <img src="https://img.shields.io/github/followers/LiangLiang723?style=for-the-badge&logo=github&label=关注者&color=2563EB" alt="GitHub（代码托管平台）关注者" />
-</a>
-<img src="https://img.shields.io/badge/方向-嵌入式软件-06B6D4?style=for-the-badge" alt="嵌入式软件工程师" />
-<img src="https://img.shields.io/badge/状态-持续构建中-8B5CF6?style=for-the-badge" alt="持续构建中" />
 
 </div>
 
