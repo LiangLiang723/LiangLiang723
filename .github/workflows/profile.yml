@@ -1,0 +1,66 @@
+name: 更新 GitHub 主页装饰
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 0 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "README.md"
+      - "assets/**"
+      - ".github/workflows/profile.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: github-profile-readme
+  cancel-in-progress: true
+
+jobs:
+  summary-cards:
+    name: 生成静态统计卡片
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 生成 GitHub 统计卡片
+        uses: vn7n24fzkq/github-profile-summary-cards@release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          USERNAME: ${{ github.repository_owner }}
+          BRANCH_NAME: main
+          UTC_OFFSET: 9
+          EXCLUDE: ""
+          AUTO_PUSH: true
+
+  contribution-snake:
+    name: 生成贡献贪吃蛇
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 生成亮色和深色 SVG
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 发布到 output 分支
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: output
+          build_dir: dist
+          commit_message: "🐍 更新 GitHub 贡献动画"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
