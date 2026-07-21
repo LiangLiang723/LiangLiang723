@@ -70,6 +70,11 @@ jobs:
           THEME: github
           AUTO_PUSH: false
 
+      - name: 暂存明亮主题统计卡片
+        run: |
+          rm -rf /tmp/profile-summary-github
+          cp -a profile-summary-card-output/github /tmp/profile-summary-github
+
       - name: 生成深色主题统计卡片
         uses: vn7n24fzkq/github-profile-summary-cards@release
         env:
@@ -82,27 +87,14 @@ jobs:
           THEME: github_dark
           AUTO_PUSH: false
 
-      - name: 执行统计卡片样式处理
-        id: style_summary
-        continue-on-error: true
-        run: python3 .github/scripts/style_summary_cards.py > summary-style.log 2>&1
-
-      - name: 上传统计卡片诊断
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: summary-style-diagnostic
-          path: |
-            summary-style.log
-            profile-summary-card-output/github/*.svg
-            profile-summary-card-output/github_dark/*.svg
-          retention-days: 1
-
-      - name: 检查样式处理结果
-        if: always()
+      - name: 恢复明亮主题统计卡片
         run: |
-          cat summary-style.log
-          test "${{ steps.style_summary.outcome }}" = "success"
+          mkdir -p profile-summary-card-output
+          rm -rf profile-summary-card-output/github
+          mv /tmp/profile-summary-github profile-summary-card-output/github
+
+      - name: 统一统计卡片样式
+        run: python3 .github/scripts/style_summary_cards.py
 
       - name: 验证完整主页资源
         run: python3 .github/scripts/validate_profile.py --require-summary-cards
